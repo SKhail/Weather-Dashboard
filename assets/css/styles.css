@@ -13,3 +13,38 @@ body {
   font-size: 12px;
   background-color: var(--background-color);
 }
+/*currentweather displayed */
+
+/* title names */
+
+.weatherContainer {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* currentWeather data */
+.cityName {
+  font-size: 15px;
+  margin-top: 2.5rem;
+}
+.cityTemperature {
+  font-size: 15px;
+  margin-top: 2.5rem;
+}
+.cityWindSpeed {
+  font-size: 15px;
+  margin-top: 2.5rem;
+}
+.cityHumid {
+  font-size: 15px;
+  margin-top: 2.5rem;
+}
+
+/* Error message displayed */
+.alert-container {
+  z-index: 11;
+}

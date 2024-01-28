@@ -27,26 +27,55 @@ $("#search-button").on("click", function (event) {
    //handling if an error occurs when fetching 
    .catch(function (error) {
     console.error(`Error Occurred when Fetching the Weather ${error}`);
-   })
+   });
+ } else {
+  //Display an error if a user has not entered a city 
+  const alertTime = `
+   <div class="alert alert-danger alert-dismissible fade show" role="alert">
+   <strong>Attention! Please enter a city!</strong> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+   </div>`;
+  $("#alert-container").append(alertTime);
  }
-})
+});
 
+// cityWeather.forEach(showWeather) {
+// const citiesEl = $()
+// }
 
 
 function showWeather(results) {
+
+
+
  //Location for city name, icons, temp, wind and humiditiy
  const cityName = results.name;
- console.log(cityName);
- const cityWeatherIcon = results.weather.icon;
- console.log(cityWeatherIcon);
- const cityTemp = results.main.temp;
- console.log(cityTemp);
+ const cityWeatherIcon = results.weather[0].icon;
+ const cityTemp = results.main.temp - 273.15;
  const cityWind = results.wind.speed;
- console.log(cityWind);
  const cityHumidity = results.main.humidity;
- console.log(cityHumidity);
+
+ const imgUrl = "https://openweathermap.org/img/wn/";
+ const imgnUrl = `${imgUrl}${cityWeatherIcon}@2x.png`;
+ const imgEl = $("<img>").attr("src", imgnUrl);
+
+ //Weather information console.log
+ console.log(`city name: ${cityName}`);
+ console.log(`Icon: ${cityWeatherIcon}`);
+ console.log(`The cities temperature: ${cityTemp}`);
+ console.log(`The cities wind: ${cityWind}`);
+ console.log(`The cities Humidity: ${cityHumidity}`);
+
+ //Append
+ $(".cityName").eq(0).text(cityName);
+ $(".weatherIcon").eq(0).empty().append(imgEl);
+ $(".cityTemperature").eq(0).text(cityTemp.toFixed(2) + "°C");
+ $(".cityWindSpeed").eq(0).text(cityWind + "KPH");
+ $(".cityHumid").eq(0).text(cityHumidity);
 
 }
+
+//loop through and Display the Weather data
+
 
 
 
