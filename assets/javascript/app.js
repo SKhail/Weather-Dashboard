@@ -1,3 +1,23 @@
+// 5 day forecast
+function fiveDayForecast(cityName) {
+
+ const apiKey = "4fd0d648b21702bcd98b75342a9bb88f";
+ const fiveDayUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchForCity}&appid=${apiKey}`;
+ console.log("API URL", fiveDayUrl);
+
+ return fetch(fiveDayUrl)
+  .then(function (response) {
+   return response.json(); //This process is waiting for the response and parsing it into JSON format
+  })
+  .catch(function (error) {  // if it isn't passing through this error will appear
+   console.error(`Error Occurred when Fetching the Weather ${error}`);
+  });
+}
+
+
+
+
+
 //Searching for a cities weather 
 $("#search-button").on("click", function (event) {
  event.preventDefault();
@@ -11,7 +31,7 @@ $("#search-button").on("click", function (event) {
 
  //Ability to search for a city 
  if (searchForCity) {
-  // URL
+  // URL current API
   const queryUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchForCity}&appid=${apiKey}`;
   console.log("API URL", queryUrl);
 
@@ -38,15 +58,7 @@ $("#search-button").on("click", function (event) {
  }
 });
 
-// cityWeather.forEach(showWeather) {
-// const citiesEl = $()
-// }
-
-
 function showWeather(results) {
-
-
-
  //Location for city name, icons, temp, wind and humiditiy
  const cityName = results.name;
  const cityWeatherIcon = results.weather[0].icon;
@@ -74,7 +86,7 @@ function showWeather(results) {
 
 }
 
-//loop through and Display the Weather data
+
 
 
 
