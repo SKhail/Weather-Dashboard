@@ -18,19 +18,43 @@ body {
 /* title names */
 
 .weatherContainer {
-  background-color: #f0f0f0;
+  background-color: #d4d3d3;
   border-radius: 10px;
+  border: 2px solid #d4d3d3;
   padding: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46);
   display: flex;
   justify-content: space-evenly;
 }
 
+.weather-data {
+  padding: 15px;
+  text-align: center;
+  border-radius: 10px;
+
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46);
+  transition: transform 0.3s ease-in-out;
+}
+
+.weather-data {
+  transform: scale(1.05);
+}
+
+/* currentweather title */
+.currentWeatherToday {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
 /* currentWeather data */
 .cityName {
+  font-weight: bold;
   font-size: 15px;
   margin-top: 2.5rem;
 }
+
 .cityTemperature {
   font-size: 15px;
   margin-top: 2.5rem;
@@ -42,6 +66,29 @@ body {
 .cityHumid {
   font-size: 15px;
   margin-top: 2.5rem;
+}
+
+/* historical data section */
+
+.historicalData {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #d4d3d3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46);
+  padding: 25px;
+}
+
+.historicalData h4 {
+  color: black;
+}
+
+.historicalCards {
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #fff;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46);
 }
 
 /* Error message displayed */
