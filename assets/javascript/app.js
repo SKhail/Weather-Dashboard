@@ -69,7 +69,9 @@ $("#search-button").on("click", function (event) {
 
 
   //Fetching the API Call 
-  fetch(queryUrl)
+  fetch(queryUrl, {
+
+  })
    .then(function (response) {
     return response.json(); //This process is waiting for the response and parsing it into JSON format
    })
@@ -128,43 +130,82 @@ function showWeather(results) {
 //  Show the five day forecaste for the searched city 
 function displayFiveForecast(fivedayData) {
 
- const forecastCont = {};
+ const fiveDayContainer = $(".fiveDayContainer");
+ console.log(fiveDayContainer);
 
- // empty the data
- // forecastCont.empty();
+ //empty Array
+ const forecastContainerDate = {};
+
 
  fivedayData.list.forEach((results) => {
   const date = results.dt_txt.split(" ")[0]; // getting the date 
-  console.log(date);
-  if (!forecastCont[date]) {
-   forecastCont[date] = results
-   console.log(forecastCont);
+  // console.log(date);
+
+  if (!forecastContainerDate[date]) {
+   forecastContainerDate[date] = []    //initilizing as an array
+
+   // console.log(forecastCont);
   }
+  //push it into the results
+  forecastContainerDate[date].push(results);
 
+ });
+ //iterating the forecastCont to show the forecaste on each day 
 
-  //combine the forecastCont to show the forecaste on each day 
+ Object.entries(forecastContainerDate).forEach(([date, forecastEnt], index) => {
+  forecastEnt.forEach((results, weatherIndex) => {
 
-  Object.values(forecastCont).forEach((results) => {
    const weatherFiveIcon = results.weather[0].icon;
-   const cityFiveTemp = results.main.temp - 273.15;
+   const cityFiveTemp = (results.main.temp - 273.15).toFixed(2);
    const cityFiveWind = results.wind.speed;
    const cityFiveHumidity = results.main.humidity;
 
+   const imgUrl = "https://openweathermap.org/img/wn/";
+   const imageFiveUrl = `${imgUrl}${weatherFiveIcon}@2x.png`;
+
+   //Testing in the console.log
    console.log(`Icon: ${weatherFiveIcon}`);
-   console.log(`The cities temperature: ${cityFiveTemp}`);
-   console.log(`The cities wind: ${cityFiveWind}`);
-   console.log(`The cities Humidity: ${cityFiveHumidity}`);
+   console.log(`URL: ${imageFiveUrl}`);
+   // console.log(`The cities temperature: ${cityFiveTemp}`);
+   // console.log(`The cities wind: ${cityFiveWind}`);
+   // console.log(`The cities Humidity: ${cityFiveHumidity}`);
+
+   //Append to the html to update it with the weather data
+   $(".weatherDate").eq(index + weatherIndex).text(date);
+   // $('.weatherIconImage').append(iconEl)
+   //$(".weatherIconImage").eq(index + weatherIndex).html(`<src=${imageFiveUrl} alt="Icon">`);
+   $(".weatherIconImage").eq(index + weatherIndex).html(`<p><img src=${imageFiveUrl} alt="Icon"/></p>`);
+   $(".cityFiveTemperature").eq(index + weatherIndex).text(`${cityFiveTemp}°C`)
+
+   // (cityFiveTemp.toFixed(2) + "°C");
+   $(".cityFiveWindSpeed").eq(index + weatherIndex).text(`${cityFiveWind}KPH`)
+   // (cityFiveWind + "KPH");
+   $(".cityFiveHumid").eq(index + weatherIndex).text(`${cityFiveHumidity}%`)
+
+   // (cityFiveHumidity + "%");
 
 
-   //Append
-   $(".weatherIconImage").eq(0).empty().append(weatherFiveIcon);
-   $(".cityFiveTemperature").eq(0).text(cityFiveTemp.toFixed(2) + "°C");
-   $(".cityFiveWindSpeed").eq(0).text(cityFiveWind + "KPH");
-   $(".cityFiveHumid").eq(0).text(cityFiveHumidity + "%");
+
+   // const fiveDayUrl = $("<img>").attr("src", imageFiveUrl);
+   // const fiveDayEl = $("<img>").attr("src", fiveDayUrl);
 
   });
  });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
