@@ -1,8 +1,12 @@
+
+//Global Scope
+let searchForCity;
+
 //local storage to save up to 5 cities 
 function storeCity(cityName) {
 
  //get the cities from the local storage / present an empty  array
- let storeCities = JSON.parse(localStorage.getItem("storeCities")) || ""
+ const storeCities = JSON.parse(localStorage.getItem("storeCities")) || []
 
  //ensure the city is already in the array
  if (!storeCities.includes(cityName)) {
@@ -21,12 +25,14 @@ function storeCity(cityName) {
 }
 
 //To present the cities from the local storage 
+function showCities() {
 
-
-
+ const storeCities = JSON.parse(localStorage.getItem("storeCities")) || []
+ console.log("This is the stored Cities", storeCities);
+}
 
 // 5 day forecast
-function fiveFetchForecast(cityName) {
+function fiveFetchForecast() {
 
  const apiKey = "4fd0d648b21702bcd98b75342a9bb88f";
  const fiveDayUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${searchForCity}&appid=${apiKey}`;
@@ -52,7 +58,7 @@ $("#search-button").on("click", function (event) {
  const apiKey = "4fd0d648b21702bcd98b75342a9bb88f";
 
  //getting the city from the searchbar
- let searchForCity = $("#search-input").val();
+ searchForCity = $("#search-input").val();
  console.log("City name:", searchForCity);
 
  //Ability to search for a city 
@@ -67,10 +73,15 @@ $("#search-button").on("click", function (event) {
    .then(function (response) {
     return response.json(); //This process is waiting for the response and parsing it into JSON format
    })
+
    .then(function (results) {
     showWeather(results);
 
+
+    showCities(searchForCity);  // Saving the searched city to the local storage
+
     return fiveFetchForecast(searchForCity);   //Fetching 5 day forecast data 
+
    })
    .then(function (fivedayData) {
     displayFiveForecast(fivedayData);
@@ -111,7 +122,7 @@ function showWeather(results) {
  $(".weatherIcon").eq(0).empty().append(imgEl);
  $(".cityTemperature").eq(0).text(cityTemp.toFixed(2) + "°C");
  $(".cityWindSpeed").eq(0).text(cityWind + "KPH");
- $(".cityHumid").eq(0).text(cityHumidity);
+ $(".cityHumid").eq(0).text(cityHumidity + "%");
 }
 
 //  Show the five day forecaste for the searched city 
@@ -120,10 +131,10 @@ function displayFiveForecast(fivedayData) {
  const forecastCont = {};
 
  // empty the data
- forecastCont.empty();
+ // forecastCont.empty();
 
  fivedayData.list.forEach((results) => {
-  const date = result.dt_txt.split(" ")[0]; // getting the date 
+  const date = results.dt_txt.split(" ")[0]; // getting the date 
   console.log(date);
   if (!forecastCont[date]) {
    forecastCont[date] = results
@@ -134,22 +145,24 @@ function displayFiveForecast(fivedayData) {
   //combine the forecastCont to show the forecaste on each day 
 
   Object.values(forecastCont).forEach((results) => {
-   const cityWeatherIcon = results.weather[0].icon;
-   const cityTemp = results.main.temp - 273.15;
-   const cityWind = results.wind.speed;
-   const cityHumidity = results.main.humidity;
+   const weatherFiveIcon = results.weather[0].icon;
+   const cityFiveTemp = results.main.temp - 273.15;
+   const cityFiveWind = results.wind.speed;
+   const cityFiveHumidity = results.main.humidity;
 
-   console.log(`Icon: ${cityWeatherIcon}`);
-   console.log(`The cities temperature: ${cityTemp}`);
-   console.log(`The cities wind: ${cityWind}`);
-   console.log(`The cities Humidity: ${cityHumidity}`);
-
-  })
+   console.log(`Icon: ${weatherFiveIcon}`);
+   console.log(`The cities temperature: ${cityFiveTemp}`);
+   console.log(`The cities wind: ${cityFiveWind}`);
+   console.log(`The cities Humidity: ${cityFiveHumidity}`);
 
 
+   //Append
+   $(".weatherIconImage").eq(0).empty().append(weatherFiveIcon);
+   $(".cityFiveTemperature").eq(0).text(cityFiveTemp.toFixed(2) + "°C");
+   $(".cityFiveWindSpeed").eq(0).text(cityFiveWind + "KPH");
+   $(".cityFiveHumid").eq(0).text(cityFiveHumidity + "%");
 
-
-
+  });
  });
 }
 
