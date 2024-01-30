@@ -7,8 +7,10 @@ function storeCity(cityName) {
 
  //get the cities from the local storage / present an empty  array
  const storeCities = JSON.parse(localStorage.getItem("storeCities")) || []
+ console.log(storeCities);
 
- //ensure the city is already in the array
+
+ // ensure the city is already in the array
  if (!storeCities.includes(cityName)) {
 
   storeCities.push(cityName); // add it in the array 
@@ -22,6 +24,8 @@ function storeCity(cityName) {
  //Save the updated arr and link it with the local storage
  localStorage.setItem("storeCities", JSON.stringify(storeCities));
 
+ // To update the historical data
+ showCities();
 }
 
 //To present the cities from the local storage 
@@ -29,6 +33,24 @@ function showCities() {
 
  const storeCities = JSON.parse(localStorage.getItem("storeCities")) || []
  console.log("This is the stored Cities", storeCities);
+ const localStorageContainer = $(".historicalCards");
+
+ localStorageContainer.empty();
+
+ //iterate through the cities that are stores and present it on the page 
+ storeCities.forEach(cities => {
+  const card = $("<div>").addClass("card mb-2 historyCard");
+  const cardBody = $("<div>").addClass("card-body historicCard");
+  const cityEl = $("<h5>").addClass("card-title").text(cities);
+
+  //append to show the cards
+  cardBody.append(cityEl);
+  card.append(cardBody);
+
+  // apply the card to the historical data card section 
+  localStorageContainer.append(card)
+ });
+ console.log("The City has been Successfully", storeCities);
 }
 
 // 5 day forecast
@@ -78,10 +100,7 @@ $("#search-button").on("click", function (event) {
 
    .then(function (results) {
     showWeather(results);
-
-
-    showCities(searchForCity);  // Saving the searched city to the local storage
-
+    storeCity(searchForCity);  // Saving the searched city to the local storage
     return fiveFetchForecast(searchForCity);   //Fetching 5 day forecast data 
 
    })
@@ -142,7 +161,7 @@ function displayFiveForecast(fivedayData) {
   // console.log(date);
 
   if (!forecastContainerDate[date]) {
-   forecastContainerDate[date] = []    //initilizing as an array
+   forecastContainerDate[date] = []    //initailizing as an array
 
    // console.log(forecastCont);
   }
@@ -150,7 +169,7 @@ function displayFiveForecast(fivedayData) {
   forecastContainerDate[date].push(results);
 
  });
- //iterating the forecastCont to show the forecaste on each day 
+ //iterating the forecastCont to show the forecast on each day 
 
  Object.entries(forecastContainerDate).forEach(([date, forecastEnt], index) => {
   forecastEnt.forEach((results, weatherIndex) => {
@@ -163,17 +182,13 @@ function displayFiveForecast(fivedayData) {
    const imgUrl = "https://openweathermap.org/img/wn/";
    const imageFiveUrl = `${imgUrl}${weatherFiveIcon}@2x.png`;
 
-   //Testing in the console.log
+
    console.log(`Icon: ${weatherFiveIcon}`);
    console.log(`URL: ${imageFiveUrl}`);
-   // console.log(`The cities temperature: ${cityFiveTemp}`);
-   // console.log(`The cities wind: ${cityFiveWind}`);
-   // console.log(`The cities Humidity: ${cityFiveHumidity}`);
+
 
    //Append to the html to update it with the weather data
    $(".weatherDate").eq(index + weatherIndex).text(date);
-   // $('.weatherIconImage').append(iconEl)
-   //$(".weatherIconImage").eq(index + weatherIndex).html(`<src=${imageFiveUrl} alt="Icon">`);
    $(".weatherIconImage").eq(index + weatherIndex).html(`<p><img src=${imageFiveUrl} alt="Icon"/></p>`);
    $(".cityFiveTemperature").eq(index + weatherIndex).text(`${cityFiveTemp}°C`)
 
@@ -181,19 +196,9 @@ function displayFiveForecast(fivedayData) {
    $(".cityFiveWindSpeed").eq(index + weatherIndex).text(`${cityFiveWind}KPH`)
    // (cityFiveWind + "KPH");
    $(".cityFiveHumid").eq(index + weatherIndex).text(`${cityFiveHumidity}%`)
-
-   // (cityFiveHumidity + "%");
-
-
-
-   // const fiveDayUrl = $("<img>").attr("src", imageFiveUrl);
-   // const fiveDayEl = $("<img>").attr("src", fiveDayUrl);
-
   });
  });
 }
-
-
 
 
 

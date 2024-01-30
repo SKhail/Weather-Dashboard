@@ -10,7 +10,9 @@
 
 body {
   font-family: var(--font-family);
-  background-color: var(--background-color);
+  background: url('/assets/images/backgroundImages.jpg');
+  background-size: cover;
+  color: var(--font--color-body);
 }
 
 h1.h2,
@@ -22,6 +24,12 @@ h4 {
 h3,
 h4 {
   font-size: 20px;
+}
+
+.searchBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /*currentweather displayed */
@@ -36,6 +44,7 @@ h4 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46);
   display: flex;
   justify-content: space-evenly;
+  margin-top: 100px;
 }
 
 .weather-data {
@@ -45,18 +54,25 @@ h4 {
 
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46);
-  transition: transform 0.3s ease-in-out;
 }
 
 .weather-data {
   transform: scale(1.05);
 }
 
+.weather-data:hover,
+.cardLayout:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
+
 /* currentweather title */
 .currentWeatherToday {
   display: flex;
+
   justify-content: center;
-  margin-top: 4rem;
+  align-content: center;
+  align-items: center;
 }
 
 /* currentWeather data */
@@ -82,24 +98,42 @@ h4 {
 /* historical data section */
 
 .historicalData {
-  padding: 20px;
   border-radius: 10px;
   background-color: #d4d3d3;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46);
-  padding: 25px;
+  padding-left: 25px;
+  margin-top: 20px;
 }
 
 .historicalData h4 {
-  color: black;
+  color: var(--font--color-body);
 }
 
 .historicalCards {
-  padding: 20px;
   border-radius: 10px;
   margin-bottom: 10px;
   border: 1px solid #fff;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46);
+  width: 50%;
+}
+
+/* The appended cards */
+.historicCard {
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #fff;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46);
+  width: 50%;
+}
+
+.historyCard {
+}
+
+.historyName {
+  display: flex;
+  justify-content: center;
 }
 
 /* five day weather cards  */
@@ -112,6 +146,7 @@ h4 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46);
   display: flex;
   justify-content: space-evenly;
+  margin-left: 45px;
 }
 .WeatherForecast {
   display: flex;
