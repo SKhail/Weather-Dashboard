@@ -10,7 +10,7 @@
 
 body {
   font-family: var(--font-family);
-  background: url('/assets/images/backgroundImages.jpg');
+  background: url('./assets/images/backgroundImages.jpg');
   background-size: cover;
   color: var(--font--color-body);
 }
@@ -115,7 +115,7 @@ h4 {
   margin-bottom: 10px;
   border: 1px solid #fff;
   background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46); */
 }
 
 /* The appended cards */
