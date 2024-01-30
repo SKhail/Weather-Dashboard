@@ -10,7 +10,7 @@
 
 body {
   font-family: var(--font-family);
-  background: url('./assets/images/backgroundImages.jpg');
+  background: url('./assets/backgroundImages.jpg');
   background-size: cover;
   color: var(--font--color-body);
 }
