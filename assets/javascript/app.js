@@ -176,6 +176,7 @@ function displayFiveForecast(fivedayData) {
       const weatherFiveIcon = results.weather[0].icon;
       const cityFiveTemp = (results.main.temp - 273.15).toFixed(2);
       const cityFiveWind = results.wind.speed;
+      console.log("The wind is display", cityFiveWind);
       const cityFiveHumidity = results.main.humidity;
 
       const imgUrl = "https://openweathermap.org/img/wn/";
@@ -192,7 +193,7 @@ function displayFiveForecast(fivedayData) {
       $(".cityFiveTemperature").eq(index + weatherIndex).text(`${cityFiveTemp}°C`)
 
       // (cityFiveTemp.toFixed(2) + "°C");
-      $(".cityFiveWindSpeed").eq(index + weatherIndex).text(`${cityFiveWind}KPH`)
+      $(".cityFiveWind").eq(index + weatherIndex).text(`${cityFiveWind}KPH`)
       // (cityFiveWind + "KPH");
       $(".cityFiveHumid").eq(index + weatherIndex).text(`${cityFiveHumidity}%`)
     });

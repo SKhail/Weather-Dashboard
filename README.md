@@ -1,5 +1,7 @@
 # Weather-Dashboard
 
+<img src="assets/images/Weather-App.png" alt="Weather App" />
+
 ## Resources
 
 [https://icons.getbootstrap.com/]
