@@ -26,11 +26,11 @@ While developing this application. I encountered a challenge when retrieving dat
 4.  You will have it in your local machines and can start the Application.
 5.  Refer to the screenshot below to see the application
 
-<img src="assets/images/Weather-App.png" alt="Weather App" />>
+<img src="assets/images/Weather-App.png" alt="Weather App" />
 
 ## Feature
 
-Added a alert component when a user does not enter anything in the search field
+Added a alert component when a user does not enter anything in the search field.
 
 ## Credits
 
